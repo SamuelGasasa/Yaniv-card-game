@@ -1,0 +1,68 @@
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  margin: 0;
+}
+.board {
+  border: 1px solid #000;
+  display: grid;
+  height: 98vh;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.hud {
+  @include flexCenter();
+  border: 1px solid #000;
+}
+.player-1-hud {
+  grid-area: 5 / 2 / 6 / 5;
+}
+.player-2-hud {
+  grid-area: 2 / 1 / 5 / 2;
+}
+.player-3-hud {
+  grid-area: 1 / 2 / 2 / 5;
+}
+.player-4-hud {
+  grid-area: 2 / 5 / 5 / 6;
+}
+.main-hud {
+  grid-area: 3 / 3 / 4 / 4;
+}
+.card.red {
+  color: red;
+}
+.card.black {
+  color: black;
+}
+.card {
+  position: relative;
+  border: 1px solid #000;
+  height: 110px;
+  width: 80px;
+  border-radius: 0.5rem;
+  @include flexCenter();
+  margin: 2px;
+  font-size: 4rem;
+}
+.card::before,
+.card::after {
+  position: absolute;
+  content: attr(data-value);
+  font-size: 1.2rem;
+}
+.card::before {
+  top: 0.5rem;
+  left: 0.5rem;
+}
+.card::after {
+  bottom: 0.5rem;
+  right: 0.5rem;
+  transform: rotate(180deg);
+}

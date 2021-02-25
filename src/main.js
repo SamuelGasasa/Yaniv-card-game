@@ -40,6 +40,18 @@ class Card {
     this.suit = suit;
     this.value = value;
   }
+  get color() {
+    if (this.suit === "♠" || this.suit === "♣") {
+      return "black";
+    } else return "red";
+  }
+  getHtml() {
+    const cardDiv = document.createElement("div");
+    cardDiv.innerText = this.suit;
+    cardDiv.classList.add("card", this.color);
+    cardDiv.dataset.value = `${this.value} ${this.suit}`;
+    return cardDiv;
+  }
 }
 class Player {
   constructor(hand, name) {
@@ -65,5 +77,5 @@ const deck = new Deck();
 deck.shuffle();
 console.log(deck.cards);
 const player1 = new Player(deck.getCards(5), "Maor");
-console.log(player1);
+console.log(player1.hand.cards[0]);
 console.log(deck.cards);
