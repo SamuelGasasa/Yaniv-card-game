@@ -58,6 +58,9 @@ class Player {
     this.name = name;
     this.hand = new Deck(hand);
   }
+  getStarted(cards) {
+    this.hand = new Deck(cards);
+  }
 }
 
 function freshDeck() {
@@ -73,9 +76,22 @@ function freshDeck() {
   return deck;
 }
 
+function elementCreator(tag, className = null) {
+  const element = document.createElement(tag);
+  element.classList.add(className);
+  return element;
+}
+function startPlaying() {
+  if (confirm("Are you sure you want to play?")) {
+  }
+}
+
+startPlaying();
 const deck = new Deck();
 deck.shuffle();
-console.log(deck.cards);
-const player1 = new Player(deck.getCards(5), "Maor");
-console.log(player1.hand.cards[0]);
-console.log(deck.cards);
+console.log(deck);
+const player1 = new Player(null, "Maor");
+console.log(player1.hand);
+player1.getStarted(deck.getCards(5));
+console.log(player1.hand);
+// console.log(player1.hand.cards[0].getHtml());

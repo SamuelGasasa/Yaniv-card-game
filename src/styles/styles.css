@@ -113,4 +113,9 @@ body {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
+
+.nameInput {
+  margin-left: auto;
+  margin-top: 50%;
+}
 /*# sourceMappingURL=styles.css.map */
