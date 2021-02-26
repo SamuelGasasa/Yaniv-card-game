@@ -61,6 +61,12 @@ class Player {
   getStarted(cards) {
     this.hand = new Deck(cards);
   }
+  printCards(player) {
+    const playerHud = document.querySelector(`.player-${player}-hud`);
+    for (let i = 0; i < this.hand.cards.length; i++) {
+      playerHud.appendChild(this.hand.cards[i].getHtml());
+    }
+  }
 }
 
 function freshDeck() {
@@ -71,7 +77,7 @@ function freshDeck() {
     });
   });
   for (let i = 0; i < 2; i++) {
-    deck.push(new Card("JOKER", "JOKER"));
+    deck.push(new Card("🃟", "🃟"));
   }
   return deck;
 }
@@ -83,8 +89,24 @@ function elementCreator(tag, className = null) {
 }
 function startPlaying() {
   if (confirm("Are you sure you want to play?")) {
+    let player1 = prompt("Player 1 name: ");
+    let player2 = prompt("Player 2 name: ");
+    let player3 = prompt("Player 3 name: ");
+    let player4 = prompt("Player 4 name: ");
+    const deck = new Deck();
+    deck.shuffle();
+    player1 = new Player(deck.getCards(5), player1);
+    player2 = new Player(deck.getCards(5), player2);
+    player3 = new Player(deck.getCards(5), player3);
+    player4 = new Player(deck.getCards(5), player4);
+    createBoard();
+    player1.printCards(1);
+    player2.printCards(2);
+    player3.printCards(3);
+    player4.printCards(4);
   }
 }
+
 function createBoard() {
   const board = elementCreator("div", "board");
   const mainHud = elementCreator("div", "main-hud");
@@ -103,11 +125,12 @@ function createBoard() {
   board.appendChild(player3Hud);
   board.appendChild(player4Hud);
 }
-const deck = new Deck();
-deck.shuffle();
-console.log(deck);
-const player1 = new Player(null, "Maor");
-console.log(player1.hand);
-player1.getStarted(deck.getCards(5));
-console.log(player1.hand);
+// const deck = new Deck();
+// deck.shuffle();
+// console.log(deck);
+// const player1 = new Player(null, "Maor");
+// console.log(player1.hand);
+// player1.getStarted(deck.getCards(5));
+// console.log(player1.hand);
 // console.log(player1.hand.cards[0].getHtml());
+startPlaying();

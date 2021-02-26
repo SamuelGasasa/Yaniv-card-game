@@ -25,12 +25,14 @@ body {
 }
 .player-2-hud {
   grid-area: 2 / 1 / 5 / 2;
+  flex-direction: column;
 }
 .player-3-hud {
   grid-area: 1 / 2 / 2 / 5;
 }
 .player-4-hud {
   grid-area: 2 / 5 / 5 / 6;
+  flex-direction: column;
 }
 .main-hud {
   grid-area: 3 / 3 / 4 / 4;
@@ -49,7 +51,7 @@ body {
   border-radius: 0.5rem;
   @include flexCenter();
   margin: 2px;
-  font-size: 4rem;
+  font-size: 2rem;
 }
 .card::before,
 .card::after {
