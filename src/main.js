@@ -85,8 +85,24 @@ function startPlaying() {
   if (confirm("Are you sure you want to play?")) {
   }
 }
-
-startPlaying();
+function createBoard() {
+  const board = elementCreator("div", "board");
+  const mainHud = elementCreator("div", "main-hud");
+  const player1Hud = elementCreator("div", "player-1-hud");
+  const player2Hud = elementCreator("div", "player-2-hud");
+  const player3Hud = elementCreator("div", "player-3-hud");
+  const player4Hud = elementCreator("div", "player-4-hud");
+  player1Hud.classList.add("hud");
+  player2Hud.classList.add("hud");
+  player3Hud.classList.add("hud");
+  player4Hud.classList.add("hud");
+  document.body.appendChild(board);
+  board.appendChild(mainHud);
+  board.appendChild(player1Hud);
+  board.appendChild(player2Hud);
+  board.appendChild(player3Hud);
+  board.appendChild(player4Hud);
+}
 const deck = new Deck();
 deck.shuffle();
 console.log(deck);
