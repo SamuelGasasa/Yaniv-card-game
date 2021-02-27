@@ -132,12 +132,21 @@ function turn(player) {
   console.log(activeCards);
   for (let card of activeCardsDOM) {
     card.addEventListener("click", () => {
-      throwCard.push(new Card(card.dataset.value, card.dataset.suit));
       if (!card.classList[3]) {
+        throwCard.push(new Card(card.dataset.value, card.dataset.suit));
         card.classList.add("chosen");
       } else card.classList.remove("chosen");
       console.log(throwCard);
     });
+  }
+}
+
+function throwCheck(cards) {
+  cards.sort((a, b) => {
+    return a.value - b.value;
+  });
+  let checkStatus = false;
+  for (let card of cards) {
   }
 }
 startPlaying();
