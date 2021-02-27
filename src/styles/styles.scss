@@ -84,4 +84,9 @@ body {
 }
 .active {
   border: 3px solid #000;
+  cursor: pointer;
+  user-select: none;
+}
+.chosen {
+  border: 3px solid rgb(255, 96, 96);
 }

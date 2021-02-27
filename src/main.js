@@ -122,15 +122,20 @@ function startPlaying() {
   }
 }
 function turn(player) {
-  const activeCards = document.querySelectorAll(`.${player}-hud li`);
+  const activeCardsDOM = document.querySelectorAll(`.${player}-hud li`);
   const throwCard = [];
-  activeCards.forEach((card) => {
+  const activeCards = [];
+  activeCardsDOM.forEach((card) => {
     card.classList.add("active");
+    activeCards.push(new Card(card.dataset.value, card.dataset.suit));
   });
   console.log(activeCards);
-  for (let card of activeCards) {
+  for (let card of activeCardsDOM) {
     card.addEventListener("click", () => {
       throwCard.push(new Card(card.dataset.value, card.dataset.suit));
+      if (!card.classList[3]) {
+        card.classList.add("chosen");
+      } else card.classList.remove("chosen");
       console.log(throwCard);
     });
   }
