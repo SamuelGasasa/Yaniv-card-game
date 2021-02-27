@@ -33,6 +33,13 @@ class Deck {
   getCards(quantity) {
     return this.cards.splice(0, quantity);
   }
+  getHTML(parent) {
+    const orderedList = document.createElement("ol");
+    parent.appendChild(orderedList);
+    for (let card of this.cards) {
+      orderedList.appendChild(card.getHtml());
+    }
+  }
 }
 
 class Card {
@@ -46,10 +53,17 @@ class Card {
     } else return "red";
   }
   getHtml() {
-    const cardDiv = document.createElement("div");
+    const cardDiv = document.createElement("li");
     cardDiv.innerText = this.suit;
     cardDiv.classList.add("card", this.color);
-    cardDiv.dataset.value = `${this.value} ${this.suit}`;
+    cardDiv.dataset.value = `${this.value}`;
+    cardDiv.dataset.suit = `${this.suit}`;
+
+    // cardDiv.addEventListener("click", () =>
+    //   console.log(
+    //     `${this.suit}${this.value} was clicked, ${cardDiv.parentElement.classList}`
+    //   )
+    // );
     return cardDiv;
   }
 }
@@ -99,38 +113,27 @@ function startPlaying() {
     player2 = new Player(deck.getCards(5), player2);
     player3 = new Player(deck.getCards(5), player3);
     player4 = new Player(deck.getCards(5), player4);
-    createBoard();
     player1.printCards(1);
     player2.printCards(2);
     player3.printCards(3);
     player4.printCards(4);
+    document.querySelector(".main-hud").innerText = deck.cards.length;
+    // deck.getHTML(document.querySelector(".main-hud"));
   }
 }
-
-function createBoard() {
-  const board = elementCreator("div", "board");
-  const mainHud = elementCreator("div", "main-hud");
-  const player1Hud = elementCreator("div", "player-1-hud");
-  const player2Hud = elementCreator("div", "player-2-hud");
-  const player3Hud = elementCreator("div", "player-3-hud");
-  const player4Hud = elementCreator("div", "player-4-hud");
-  player1Hud.classList.add("hud");
-  player2Hud.classList.add("hud");
-  player3Hud.classList.add("hud");
-  player4Hud.classList.add("hud");
-  document.body.appendChild(board);
-  board.appendChild(mainHud);
-  board.appendChild(player1Hud);
-  board.appendChild(player2Hud);
-  board.appendChild(player3Hud);
-  board.appendChild(player4Hud);
+function turn(player) {
+  const activeCards = document.querySelectorAll(`.${player}-hud li`);
+  const throwCard = [];
+  activeCards.forEach((card) => {
+    card.classList.add("active");
+  });
+  console.log(activeCards);
+  for (let card of activeCards) {
+    card.addEventListener("click", () => {
+      throwCard.push(new Card(card.dataset.value, card.dataset.suit));
+      console.log(throwCard);
+    });
+  }
 }
-// const deck = new Deck();
-// deck.shuffle();
-// console.log(deck);
-// const player1 = new Player(null, "Maor");
-// console.log(player1.hand);
-// player1.getStarted(deck.getCards(5));
-// console.log(player1.hand);
-// console.log(player1.hand.cards[0].getHtml());
 startPlaying();
+turn("player-1");

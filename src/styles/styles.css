@@ -28,6 +28,18 @@ body {
   border: 1px solid #000;
 }
 
+.player-1-hud.ol {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .player-1-hud {
   -ms-grid-row: 5;
   -ms-grid-row-span: 1;
@@ -69,11 +81,18 @@ body {
 }
 
 .main-hud {
+  position: relative;
   -ms-grid-row: 3;
   -ms-grid-row-span: 1;
   -ms-grid-column: 3;
   -ms-grid-column-span: 1;
   grid-area: 3 / 3 / 4 / 4;
+}
+
+.main-hud.card {
+  position: absolute;
+  top: 0;
+  z-index: 9001;
 }
 
 .card.red {
@@ -125,5 +144,9 @@ body {
 .nameInput {
   margin-left: auto;
   margin-top: 50%;
+}
+
+.active {
+  border: 3px solid #000;
 }
 /*# sourceMappingURL=styles.css.map */
