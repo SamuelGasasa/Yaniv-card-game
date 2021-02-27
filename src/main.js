@@ -135,7 +135,15 @@ function turn(player) {
       if (!card.classList[3]) {
         throwCard.push(new Card(card.dataset.value, card.dataset.suit));
         card.classList.add("chosen");
-      } else card.classList.remove("chosen");
+      } else {
+        let removeCard = throwCard.find(
+          (remove) =>
+            remove.value === card.dataset.value &&
+            remove.suit === card.dataset.suit
+        );
+        throwCard.splice(throwCard.indexOf(removeCard), 1);
+        card.classList.remove("chosen");
+      }
       console.log(throwCard);
     });
   }
