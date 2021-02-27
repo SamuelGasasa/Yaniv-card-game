@@ -123,7 +123,7 @@ function startPlaying() {
 }
 function turn(player) {
   const activeCardsDOM = document.querySelectorAll(`.${player}-hud li`);
-  const throwCard = [];
+  const throwCards = [];
   const activeCards = [];
   activeCardsDOM.forEach((card) => {
     card.classList.add("active");
@@ -133,20 +133,27 @@ function turn(player) {
   for (let card of activeCardsDOM) {
     card.addEventListener("click", () => {
       if (!card.classList[3]) {
-        throwCard.push(new Card(card.dataset.value, card.dataset.suit));
+        throwCards.push(new Card(card.dataset.value, card.dataset.suit));
         card.classList.add("chosen");
       } else {
-        let removeCard = throwCard.find(
+        let removeCard = throwCards.find(
           (remove) =>
             remove.value === card.dataset.value &&
             remove.suit === card.dataset.suit
         );
-        throwCard.splice(throwCard.indexOf(removeCard), 1);
+        throwCards.splice(throwCards.indexOf(removeCard), 1);
         card.classList.remove("chosen");
       }
-      console.log(throwCard);
+      console.log(throwCards);
     });
   }
+  const sendButton = document.querySelector(".send-button");
+  sendButton.addEventListener("click", () => {
+    if (throwCheck(throwCards)) {
+      const pileDeck = new Deck(throwCards);
+      pileDeck.getHTML(document.querySelector(".main-hud"));
+    } else alert("Cards Thrown not valid");
+  });
 }
 
 function throwCheck(cards) {
@@ -154,8 +161,20 @@ function throwCheck(cards) {
     return a.value - b.value;
   });
   let checkStatus = false;
-  for (let card of cards) {
+  for (let i = 0; i < cards.length - 1; i++) {
+    console.log(cards[i].value);
+    console.log(cards[i + 1].value);
+    if (
+      Number(cards[i].value) + 1 === Number(cards[i + 1].value) &&
+      cards[i].suit === cards[i + 1].suit
+    ) {
+      checkStatus = true;
+    } else if (cards[i].value === cards[i + 1].value) {
+      checkStatus = true;
+    } else checkStatus = false;
   }
+  return checkStatus;
 }
+
 startPlaying();
 turn("player-1");
